@@ -31,8 +31,8 @@ testing. This feature is frontend-only (`packages/frontend`); no backend changes
 
 **Purpose**: Prepare the files this feature introduces
 
-- [ ] T001 [P] Create the overdue helper file scaffold `packages/frontend/src/utils/dateUtils.js` with an exported `isOverdue` stub and JSDoc (no logic yet)
-- [ ] T002 [P] Create the test file scaffold `packages/frontend/src/utils/__tests__/dateUtils.test.js` (empty describe block for `isOverdue`)
+- [X] T001 [P] Create the overdue helper file scaffold `packages/frontend/src/utils/dateUtils.js` with an exported `isOverdue` stub and JSDoc (no logic yet)
+- [X] T002 [P] Create the test file scaffold `packages/frontend/src/utils/__tests__/dateUtils.test.js` (empty describe block for `isOverdue`)
 
 ---
 
@@ -43,8 +43,8 @@ testing. This feature is frontend-only (`packages/frontend`); no backend changes
 **⚠️ CRITICAL**: No user story work can begin until the `isOverdue` helper exists and passes
 its unit tests, since every story consumes it.
 
-- [ ] T003 [US-shared] Write failing unit tests for `isOverdue(todo, now)` in `packages/frontend/src/utils/__tests__/dateUtils.test.js` covering all 8 contract cases from `specs/001-overdue-todos/contracts/isOverdue.md` (past, today, future, completed `true`, completed `1`, `dueDate: null`, missing `dueDate`, date-advances)
-- [ ] T004 [US-shared] Implement `isOverdue(todo, now = new Date())` in `packages/frontend/src/utils/dateUtils.js` using local calendar-day comparison so it satisfies FR-001–FR-004 and FR-008 and makes T003 pass
+- [X] T003 [US-shared] Write failing unit tests for `isOverdue(todo, now)` in `packages/frontend/src/utils/__tests__/dateUtils.test.js` covering all 8 contract cases from `specs/001-overdue-todos/contracts/isOverdue.md` (past, today, future, completed `true`, completed `1`, `dueDate: null`, missing `dueDate`, date-advances)
+- [X] T004 [US-shared] Implement `isOverdue(todo, now = new Date())` in `packages/frontend/src/utils/dateUtils.js` using local calendar-day comparison so it satisfies FR-001–FR-004 and FR-008 and makes T003 pass
 
 **Checkpoint**: `isOverdue` is fully tested and green — user story UI work can begin.
 
@@ -60,12 +60,12 @@ the list and confirm only the past-due one shows the overdue treatment.
 
 ### Tests for User Story 1 ⚠️ (write first, must fail)
 
-- [ ] T005 [US1] Add failing component tests in `packages/frontend/src/components/__tests__/TodoCard.test.js` asserting that an incomplete past-due todo renders the overdue indicator (overdue CSS class AND a non-color textual/`aria` cue) and that a future-due incomplete todo does not (FR-001, FR-005, FR-006)
+- [X] T005 [US1] Add failing component tests in `packages/frontend/src/components/__tests__/TodoCard.test.js` asserting that an incomplete past-due todo renders the overdue indicator (overdue CSS class AND a non-color textual/`aria` cue) and that a future-due incomplete todo does not (FR-001, FR-005, FR-006)
 
 ### Implementation for User Story 1
 
-- [ ] T006 [US1] Import `isOverdue` and compute the derived flag in `packages/frontend/src/components/TodoCard.js`, applying an `overdue` class to the card and rendering a visible "Overdue" label/icon plus an accessible cue near the due date (FR-005, FR-006); make T005 pass
-- [ ] T007 [P] [US1] Add overdue theme tokens (light + dark) in `packages/frontend/src/styles/theme.css` and `.todo-card.overdue` styling in `packages/frontend/src/App.css` meeting WCAG AA contrast (FR-007)
+- [X] T006 [US1] Import `isOverdue` and compute the derived flag in `packages/frontend/src/components/TodoCard.js`, applying an `overdue` class to the card and rendering a visible "Overdue" label/icon plus an accessible cue near the due date (FR-005, FR-006); make T005 pass
+- [X] T007 [P] [US1] Add overdue theme tokens (light + dark) in `packages/frontend/src/styles/theme.css` and `.todo-card.overdue` styling in `packages/frontend/src/App.css` meeting WCAG AA contrast (FR-007)
 
 **Checkpoint**: User Story 1 is fully functional and independently testable (MVP).
 
@@ -81,11 +81,11 @@ is flagged, and the indicator disappears immediately on completion.
 
 ### Tests for User Story 2 ⚠️ (write first, must fail)
 
-- [ ] T008 [US2] Add failing component tests in `packages/frontend/src/components/__tests__/TodoCard.test.js` asserting a completed past-due todo and an incomplete undated todo render NO overdue indicator, and that toggling an overdue todo to complete removes it (FR-002, FR-003, FR-009)
+- [X] T008 [US2] Add failing component tests in `packages/frontend/src/components/__tests__/TodoCard.test.js` asserting a completed past-due todo and an incomplete undated todo render NO overdue indicator, and that toggling an overdue todo to complete removes it (FR-002, FR-003, FR-009)
 
 ### Implementation for User Story 2
 
-- [ ] T009 [US2] Confirm/adjust the `isOverdue` consumption in `packages/frontend/src/components/TodoCard.js` so completion (`true` or `1`) and missing/null `dueDate` suppress the indicator and re-render on toggle clears it; make T008 pass (FR-002, FR-003, FR-009)
+- [X] T009 [US2] Confirm/adjust the `isOverdue` consumption in `packages/frontend/src/components/TodoCard.js` so completion (`true` or `1`) and missing/null `dueDate` suppress the indicator and re-render on toggle clears it; make T008 pass (FR-002, FR-003, FR-009)
 
 **Checkpoint**: User Stories 1 and 2 both work independently.
 
@@ -101,11 +101,11 @@ overdue.
 
 ### Tests for User Story 3 ⚠️ (write first, must fail)
 
-- [ ] T010 [US3] Add a failing test (helper-level in `packages/frontend/src/utils/__tests__/dateUtils.test.js` and/or component-level in `packages/frontend/src/components/__tests__/TodoCard.test.js`) proving a due-today todo becomes overdue when `now` advances to the next day (FR-008)
+- [X] T010 [US3] Add a failing test (helper-level in `packages/frontend/src/utils/__tests__/dateUtils.test.js` and/or component-level in `packages/frontend/src/components/__tests__/TodoCard.test.js`) proving a due-today todo becomes overdue when `now` advances to the next day (FR-008)
 
 ### Implementation for User Story 3
 
-- [ ] T011 [US3] Ensure overdue is computed on each render (no stale caching) in `packages/frontend/src/components/TodoCard.js` so status reflects the current date; make T010 pass (FR-008)
+- [X] T011 [US3] Ensure overdue is computed on each render (no stale caching) in `packages/frontend/src/components/TodoCard.js` so status reflects the current date; make T010 pass (FR-008)
 
 **Checkpoint**: All three user stories are independently functional.
 
@@ -115,9 +115,9 @@ overdue.
 
 **Purpose**: Finalize quality, accessibility, and validation
 
-- [ ] T012 [P] Verify ESLint passes with no errors/warnings and no `console.log` left in changed files (`packages/frontend/src/utils/dateUtils.js`, `packages/frontend/src/components/TodoCard.js`)
-- [ ] T013 [P] Confirm coverage goals: run `npm test --workspace=packages/frontend -- --coverage` and verify 100% on `dateUtils.js` and the overdue path in `TodoCard.js`
-- [ ] T014 Run the manual validation steps in `specs/001-overdue-todos/quickstart.md`, including light/dark mode contrast and the non-color cue (FR-006, FR-007)
+- [X] T012 [P] Verify ESLint passes with no errors/warnings and no `console.log` left in changed files (`packages/frontend/src/utils/dateUtils.js`, `packages/frontend/src/components/TodoCard.js`), and confirm no backend, API, or storage changes were introduced (FR-010 — frontend-only, derived state)
+- [X] T013 [P] Confirm coverage goals: run `npm test --workspace=packages/frontend -- --coverage` and verify 100% on `dateUtils.js` and the overdue path in `TodoCard.js`
+- [ ] T014 Run the manual validation steps in `specs/001-overdue-todos/quickstart.md`, including light/dark mode contrast and the non-color cue (FR-006, FR-007), and confirm overdue todos are identifiable at a glance within 5 seconds without manual date comparison (SC-002)
 
 ---
 

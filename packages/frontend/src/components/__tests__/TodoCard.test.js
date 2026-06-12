@@ -99,4 +99,97 @@ describe('TodoCard Component', () => {
     
     expect(screen.queryByText(/Due:/)).not.toBeInTheDocument();
   });
+
+  describe('overdue indicator', () => {
+    const realDateNow = Date.now;
+
+    afterEach(() => {
+      jest.useRealTimers();
+      Date.now = realDateNow;
+    });
+
+    const setToday = (year, monthIndex, day) => {
+      jest.useFakeTimers();
+      jest.setSystemTime(new Date(year, monthIndex, day));
+    };
+
+    it('shows the overdue indicator for an incomplete past-due todo (FR-001, FR-005, FR-006)', () => {
+      setToday(2026, 5, 12); // 2026-06-12
+      const pastDue = { ...mockTodo, completed: 0, dueDate: '2026-06-11' };
+      const { container } = render(<TodoCard todo={pastDue} {...mockHandlers} isLoading={false} />);
+
+      expect(container.querySelector('.todo-card')).toHaveClass('overdue');
+      expect(screen.getByText('Overdue')).toBeInTheDocument();
+      expect(screen.getByText(/past its due date/)).toBeInTheDocument();
+    });
+
+    it('does not show the indicator for an incomplete future-due todo (FR-001)', () => {
+      setToday(2026, 5, 12);
+      const futureDue = { ...mockTodo, completed: 0, dueDate: '2026-06-13' };
+      render(<TodoCard todo={futureDue} {...mockHandlers} isLoading={false} />);
+
+      expect(screen.queryByText('Overdue')).not.toBeInTheDocument();
+    });
+
+    it('does not show the indicator for an incomplete due-today todo (FR-004)', () => {
+      setToday(2026, 5, 12);
+      const dueToday = { ...mockTodo, completed: 0, dueDate: '2026-06-12' };
+      render(<TodoCard todo={dueToday} {...mockHandlers} isLoading={false} />);
+
+      expect(screen.queryByText('Overdue')).not.toBeInTheDocument();
+    });
+
+    it('does not show the indicator for a completed (1) past-due todo (FR-002)', () => {
+      setToday(2026, 5, 12);
+      const completedTodo = { ...mockTodo, completed: 1, dueDate: '2026-06-01' };
+      render(<TodoCard todo={completedTodo} {...mockHandlers} isLoading={false} />);
+
+      expect(screen.queryByText('Overdue')).not.toBeInTheDocument();
+    });
+
+    it('does not show the indicator for a completed (true) past-due todo (FR-002)', () => {
+      setToday(2026, 5, 12);
+      const completedTodo = { ...mockTodo, completed: true, dueDate: '2026-06-01' };
+      render(<TodoCard todo={completedTodo} {...mockHandlers} isLoading={false} />);
+
+      expect(screen.queryByText('Overdue')).not.toBeInTheDocument();
+    });
+
+    it('does not show the indicator for an undated incomplete todo (FR-003)', () => {
+      setToday(2026, 5, 12);
+      const undated = { ...mockTodo, completed: 0, dueDate: null };
+      render(<TodoCard todo={undated} {...mockHandlers} isLoading={false} />);
+
+      expect(screen.queryByText('Overdue')).not.toBeInTheDocument();
+    });
+
+    it('removes the indicator when an overdue todo is toggled complete (FR-009)', () => {
+      setToday(2026, 5, 12);
+      const pastDue = { ...mockTodo, completed: 0, dueDate: '2026-06-11' };
+      const { container, rerender } = render(
+        <TodoCard todo={pastDue} {...mockHandlers} isLoading={false} />
+      );
+
+      expect(container.querySelector('.todo-card')).toHaveClass('overdue');
+
+      rerender(<TodoCard todo={{ ...pastDue, completed: 1 }} {...mockHandlers} isLoading={false} />);
+
+      expect(screen.queryByText('Overdue')).not.toBeInTheDocument();
+    });
+
+    it('marks a due-today todo overdue once the date advances (FR-008)', () => {
+      const dueToday = { ...mockTodo, completed: 0, dueDate: '2026-06-12' };
+
+      setToday(2026, 5, 12);
+      const { container, rerender } = render(
+        <TodoCard todo={dueToday} {...mockHandlers} isLoading={false} />
+      );
+      expect(screen.queryByText('Overdue')).not.toBeInTheDocument();
+
+      setToday(2026, 5, 13); // next day
+      rerender(<TodoCard todo={dueToday} {...mockHandlers} isLoading={false} />);
+      expect(container.querySelector('.todo-card')).toHaveClass('overdue');
+      expect(screen.getByText('Overdue')).toBeInTheDocument();
+    });
+  });
 });

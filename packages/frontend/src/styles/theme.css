@@ -19,6 +19,11 @@
   --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
   --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
 
+  /* Overdue indicator (light) */
+  --overdue-color: #b3261e;
+  --overdue-bg: #fdecea;
+  --overdue-border: #d93025;
+
   /* Spacing */
   --space-xs: 8px;
   --space-sm: 16px;
@@ -50,4 +55,9 @@
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
   --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.3);
   --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.3);
+
+  /* Overdue indicator (dark) */
+  --overdue-color: #ffb4ab;
+  --overdue-bg: #3a1614;
+  --overdue-border: #f2675c;
 }

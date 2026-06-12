@@ -101,8 +101,8 @@ the following day, and confirm the todo is now marked overdue.
   todo list using a clear, consistent treatment.
 - **FR-006**: System MUST convey overdue status using more than color alone (e.g., a label,
   icon, or text cue) so the status is perceivable by users who cannot distinguish colors.
-- **FR-007**: The overdue indication MUST be legible and meet accessibility contrast
-  standards in both light and dark modes.
+- **FR-007**: The overdue indication MUST be legible and meet WCAG AA contrast standards in
+  both light and dark modes.
 - **FR-008**: System MUST re-evaluate overdue status against the current date each time the
   todo list is displayed, so status reflects the present day without requiring edits.
 - **FR-009**: System MUST remove the overdue indication immediately when a todo is marked

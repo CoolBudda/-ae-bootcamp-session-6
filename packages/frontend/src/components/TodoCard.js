@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { isOverdue } from '../utils/dateUtils';
 
 function TodoCard({ todo, onToggle, onEdit, onDelete, isLoading }) {
   const [isEditing, setIsEditing] = useState(false);
@@ -106,8 +107,10 @@ function TodoCard({ todo, onToggle, onEdit, onDelete, isLoading }) {
     );
   }
 
+  const overdue = isOverdue(todo);
+
   return (
-    <div className={`todo-card ${todo.completed ? 'completed' : ''}`}>
+    <div className={`todo-card ${todo.completed ? 'completed' : ''} ${overdue ? 'overdue' : ''}`.trim()}>
       <input
         type="checkbox"
         checked={todo.completed === 1}
@@ -122,6 +125,13 @@ function TodoCard({ todo, onToggle, onEdit, onDelete, isLoading }) {
         {todo.dueDate && (
           <p className="todo-due-date">
             Due: {formatDate(todo.dueDate)}
+            {overdue && (
+              <span className="todo-overdue-badge" role="status">
+                <span aria-hidden="true">⚠ </span>
+                Overdue
+                <span className="visually-hidden"> — this todo is past its due date</span>
+              </span>
+            )}
           </p>
         )}
       </div>

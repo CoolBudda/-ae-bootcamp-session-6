@@ -334,6 +334,38 @@ p {
   color: var(--success-color);
 }
 
+.todo-card.overdue {
+  border-color: var(--overdue-border);
+  border-left-width: 4px;
+}
+
+.todo-overdue-badge {
+  display: inline-flex;
+  align-items: center;
+  margin-left: var(--space-xs);
+  padding: 1px 8px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--overdue-color);
+  background-color: var(--overdue-bg);
+  border: 1px solid var(--overdue-border);
+  border-radius: var(--radius-sm);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .todo-checkbox {
   width: 20px;
   height: 20px;
