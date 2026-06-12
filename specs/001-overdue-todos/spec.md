@@ -88,6 +88,14 @@ the following day, and confirm the todo is now marked overdue.
 - The overdue indicator must remain distinguishable in both light and dark modes and meet
   accessibility contrast standards, and must not rely on color alone to convey meaning.
 
+## Clarifications
+
+### Session 2026-06-12
+
+- Q: What exact non-color cue should mark an overdue todo (FR-006)? → A: A ⚠ warning icon plus a visible "Overdue" text label plus accessible screen-reader text.
+- Q: Should the visible overdue label be static or convey how many days past due? → A: A static "Overdue" label with no day count.
+- Q: How should the ⚠ icon be exposed to assistive technology given the visible "Overdue" label? → A: The icon is decorative (aria-hidden); the visible "Overdue" text is the accessible status.
+
 ## Requirements *(mandatory)*
 
 ### Functional Requirements
@@ -99,8 +107,12 @@ the following day, and confirm the todo is now marked overdue.
 - **FR-004**: System MUST treat a todo whose due date equals the current date as NOT overdue.
 - **FR-005**: System MUST visually distinguish overdue todos from non-overdue todos in the
   todo list using a clear, consistent treatment.
-- **FR-006**: System MUST convey overdue status using more than color alone (e.g., a label,
-  icon, or text cue) so the status is perceivable by users who cannot distinguish colors.
+- **FR-006**: System MUST convey overdue status using more than color alone, specifically a
+  ⚠ warning icon and a visible "Overdue" text label, so the status is perceivable by users
+  who cannot distinguish colors. The visible label is the static word "Overdue" and MUST NOT
+  include a relative day count. The ⚠ icon MUST be decorative (hidden from assistive
+  technology) and the visible "Overdue" text MUST serve as the accessible status, so screen
+  readers announce the status exactly once without redundant icon text.
 - **FR-007**: The overdue indication MUST be legible and meet WCAG AA contrast standards in
   both light and dark modes.
 - **FR-008**: System MUST re-evaluate overdue status against the current date each time the
